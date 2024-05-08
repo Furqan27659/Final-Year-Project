@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_mate/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const fruitMate());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class fruitMate extends StatelessWidget {
+  const fruitMate({super.key});
 
   // This widget is the root of your application.
   @override
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
 
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashScreen(),
     );
   }
 }
@@ -46,15 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
       ),
-      body: Center(
-        child: Container(
-          width: 100,
-          height: 100,
-          color: Colors.blue,
-          child: Text('Hi there'),
-
-        ),
-      ),
+      body:Container()
 
     );
   }

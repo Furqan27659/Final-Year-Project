@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'home.dart'; // Importing the HomePage widget from home.dart file
+import 'package:fruit_mate/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'home.dart';
 
 void main() {
   runApp(Login());
@@ -43,8 +45,12 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Navigate to home page after successful login
+              onPressed: () async {
+                //if successfully login
+                var sharedPref = await SharedPreferences.getInstance();
+                sharedPref.setBool(SplashScreenState.KEYLOGIN, true);
+
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HomePage()),

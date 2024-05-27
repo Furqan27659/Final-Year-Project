@@ -1,25 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fruit_mate/login.dart'; // Assuming login.dart contains your login page widget
+import 'package:fruit_mate/home.dart';
+import 'package:fruit_mate/login.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Assuming login.dart contains your login page widget
 
 class SplashScreen extends StatefulWidget {
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashScreen> createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen> {
+  static const String KEYLOGIN = "Login";
+
   @override
   void initState() {
     super.initState();
-    Timer(
-      Duration(seconds: 5),
-          () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Login()),
-        );
-      },
-    );
+    whereToGo();
   }
 
   @override
@@ -38,6 +34,35 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void whereToGo() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    var isLoggedIn = sharedPref.getBool(KEYLOGIN);
+
+    Timer(
+      Duration(seconds: 5),
+          () {
+        if (isLoggedIn != null) {
+          if (isLoggedIn) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          }
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()),
+          );
+        }
+      },
     );
   }
 }

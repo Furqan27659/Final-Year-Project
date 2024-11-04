@@ -62,7 +62,9 @@ class _ClassificationPageState extends State<ClassificationPage> {
         _result = result; // Update the result with the prediction
       });
     } catch (e) {
-      print('Error during classification: $e');
+      setState(() {
+        _result = 'Error during classification: $e'; // Display error message
+      });
     } finally {
       setState(() {
         _isLoading = false; // Hide loading state
@@ -75,13 +77,23 @@ class _ClassificationPageState extends State<ClassificationPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Image Classification'),
+        leading: IconButton(
+          icon: Image.asset(
+            'assets/images/back.png', // Replace with your back button image path
+            height: 24, // Adjust size as needed
+            width: 24,
+          ),
+          onPressed: () {
+            Navigator.pop(context); // Go back to the previous screen
+          },
+        ),
       ),
       body: Stack(
         children: [
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/background.jpg',
+              'assets/images/oo.png', // Replace with your background image path
               fit: BoxFit.cover,
             ),
           ),
@@ -109,7 +121,12 @@ class _ClassificationPageState extends State<ClassificationPage> {
                 _image != null
                     ? ElevatedButton(
                   onPressed: _classifyImage,
-                  child: _isLoading ? CircularProgressIndicator() : Text('Classify Image'),
+                  child: _isLoading
+                      ? CircularProgressIndicator()
+                      : Text('Classify Image', style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50), backgroundColor: Theme.of(context).primaryColor, // Button color
+                  ),
                 )
                     : Container(),
                 SizedBox(height: 20),
@@ -126,15 +143,15 @@ class _ClassificationPageState extends State<ClassificationPage> {
 
   Widget _buildElevatedButton(BuildContext context, String text, VoidCallback onPressed) {
     return ElevatedButton.icon(
-      icon: Icon(add_photo_alternate_outlined),
+      icon: Icon(add_photo_alternate_outlined, color: Colors.white), // Icon color
       onPressed: onPressed,
       label: Text(
         text,
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16, color: Colors.white), // Text color
       ),
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(double.infinity, 50),
-        textStyle: TextStyle(fontSize: 18),
+        minimumSize: Size(double.infinity, 50), backgroundColor: Theme.of(context).primaryColor,
+        textStyle: TextStyle(fontSize: 18), // Button color
       ),
     );
   }

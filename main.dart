@@ -1,54 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_mate/splash_screen.dart';
+import 'package:fruitt_mate/splash_screen.dart'; // Import SplashScreen
+import 'package:firebase_core/firebase_core.dart';
+import 'package:fruitt_mate/firebase_options.dart';
 
-void main() {
-  runApp(const fruitMate());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const FruitMate());
 }
 
-class fruitMate extends StatelessWidget {
-  const fruitMate({super.key});
 
-  // This widget is the root of your application.
+class FruitMate extends StatelessWidget {
+  const FruitMate({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Fruit Mate',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-
       ),
       home: SplashScreen(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      //application bar
-      appBar: AppBar(
-        title: Text('Flutter_Container'),
-        backgroundColor: Colors.grey,
-
-
-
-      ),
-      body:Container()
-
     );
   }
 }
